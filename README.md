@@ -1,2 +1,2 @@
-# VRF-Lottery Ideas/Issues
+# VRF-Lottery Status/Issues/Ideas
 

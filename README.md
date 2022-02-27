@@ -1,12 +1,12 @@
 # VRF-Lottery Status/Issues/Ideas
 
-##Small description of the project
+## Small description of the project
 
-##Fundamental Issues
+## Fundamental Issues
 
-##Ways to solve the problems
+## Ways to solve the problems
 
 
-##Technical Issues
+## Technical Issues
 
-##Ways to solve the problems
+## Ways to solve the problems

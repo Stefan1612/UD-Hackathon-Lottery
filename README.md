@@ -13,7 +13,7 @@ This way a community could control the lottery.
 ## Technical Issues
 1. 
   Normally you shouldn't use block.timestamp for future time based events. Using the block.timestamp method means that your contract may be vurnerable to miners having more         control over the outcome that regular users. In this case as long as you keep the minimun time the lottery is running, higher then 15 seconds (15 second rule). Currently it's in   the owners hand to decide that.
-2
+2. 
   The front-end is a mess due to me not utilizing the solidity events. 
   Callback hell:
   - Hard to read

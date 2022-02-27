@@ -19,7 +19,7 @@ Callback hell:
 - Hard to read
 - Hard to update
 - Inefficient
-- 
+
 ## Ways to solve the problems
 1) 
 Using a future time event based on future block NUMBER is a better version to deal with these kind of contracts

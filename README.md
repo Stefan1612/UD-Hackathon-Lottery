@@ -1,6 +1,6 @@
 # VRF-Lottery Status/Issues/Ideas
 
-##Smmal description of the project
+##Small description of the project
 
 ##Fundamental Issues
 

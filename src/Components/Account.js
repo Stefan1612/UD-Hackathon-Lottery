@@ -35,7 +35,7 @@ const Account = (props) => {
         <Typography
           variant="p"
           component="span"
-          style={{ color: "rgb(172, 40, 22)" }}
+          sx={{ color: "rgb(172, 40, 22)" }}
         >
           lottery profits
         </Typography>{" "}

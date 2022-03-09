@@ -4,47 +4,49 @@ const Home = (props) => {
   return (
     <Box id="HomeId">
       {/* <img id="image" src="https://c.pxhere.com/photos/c3/a0/casino_roulette_table_the_dealer_game_fun_addiction_pleasure-993952.jpg!d"></img> */}
-      <Box id="titles">
-        <Typography id="bigTitle">Ethereum Lottery</Typography>
-        <Typography id="title">
-          This is running on the Kovan Network!
+      <Box>
+        <Typography marginTop={22} component="h1" variant="h1">
+          Ethereum Lottery
+        </Typography>
+        <Typography marginTop={2} component="h2" variant="h2">
+          Running on Kovan!
         </Typography>
       </Box>
-      <Box id="homeInfos">
-        <Box id="isLottery">
-          {props.isLotteryRunning}{" "}
-          <Box id="lastStartedCSS">
-            Last Lottery started at: {props.startTime}
-          </Box>
+      <Box>
+        <Box>
+          <Typography marginTop={"65vh"} sx={{ color: "black" }}>
+            {props.isLotteryRunning}
+          </Typography>
+
+          <Box>Last Lottery started at: {props.startTime}</Box>
         </Box>
-        <br></br>
-        <Box id="CurrentPriceCSS">
-          Current Price Pool in Ether{" "}
-          <span style={{ fontSize: "150%" }}>{props.currentPool}</span>{" "}
+
+        <Box>
+          Current Price Pool in Ether
+          <Typography component="span" variant="p" style={{ fontSize: "150%" }}>
+            {props.currentPool}
+          </Typography>
           {ethers.constants.EtherSymbol}
-          <Box id="entryPriceCSS">
-            <br></br>Entry cost: {props.price} ether{" "}
+          <Box>
+            Entry cost: {props.price} ether
             {ethers.constants.EtherSymbol}
-            <button id="buyTicket" onClick={props.enterPoolContract}>
+            <Button onClick={props.enterPoolContract}>
               Buy Lottery Ticket
-            </button>
+            </Button>
           </Box>
         </Box>
 
-        <br></br>
-        <Box id="timeCSS">
+        <Box>
           Minimun amount of time the Lottery is going to run: {props.time}{" "}
           seconds
         </Box>
 
-        <br></br>
-        <Box id="winnerCSS">
-          Congratulations to <br></br>
+        <Box>
+          Congratulations to
           {props.winner} !
         </Box>
 
-        <br></br>
-        <Box id="playerList">
+        <Box>
           Current Participants: <Box>{props.playerArray}</Box>
         </Box>
       </Box>

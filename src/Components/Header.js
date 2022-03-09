@@ -36,7 +36,7 @@ function Header() {
         boxShadow: 0,
         color: "white",
       }}
-      marginLeft={20}
+      marginleft={20}
     >
       <Toolbar
         disableGutters
@@ -94,7 +94,7 @@ function Header() {
             </MenuItem>
           ))}
           <MenuItem
-            to="#time-machine"
+            to="#enter-lottery"
             component={HashLink}
             smooth
             onClick={closeMenu}

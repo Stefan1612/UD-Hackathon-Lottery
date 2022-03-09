@@ -2,11 +2,11 @@ import "./App.css";
 
 import React, { useState, useEffect, useRef } from "react";
 import { Route, Link, Routes } from "react-router-dom";
-import Navbar from "./Components/Navbar.js";
-import Home from "./Components/Home.js";
-import Account from "./Components/Account.js";
-import Management from "./Components/Management.js";
-
+import Navbar from "./Components/Navbar";
+import Home from "./Components/Home";
+import Account from "./Components/Account";
+import Management from "./Components/Management";
+import FAQ from "./Components/FAQ";
 import { ethers } from "ethers";
 import lotteryABI from "./config/contracts/Lottery.json";
 import lotteryAddress from "./config/contracts/map.json";
@@ -420,7 +420,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Box className="App" id="co">
+      <Box>
         <Container>
           <link
             rel="stylesheet"
@@ -430,10 +430,8 @@ function App() {
             referrerPolicy="no-referrer"
           />
 
-          <Navbar />
-
           <BackgroundImage />
-          <Box id="pages" sx={{ color: "white" }}>
+          <Box sx={{ color: "white" }}>
             <Routes>
               <Route
                 exact
@@ -457,52 +455,51 @@ function App() {
                   />
                 }
               />
-
-              <Route
-                exact
-                path="/Management"
-                element={
-                  <Management
-                    lotteryAddress={lotteryAddress[42].Lottery}
-                    changingTimeInterval={changingTimeInterval}
-                    handleChange={handleChange}
-                    getOwner={getOwner}
-                    owner={owner}
-                    chooseWinnerContract={chooseWinnerContract}
-                    startNewLotteryContract={startNewLotteryContract}
-                    changeEntryPrice={changeEntryPrice}
-                    handleChangePrice={handleChangePrice}
-                    getContractBalance={getContractBalance}
-                    balance={balance}
-                    withdrawContractProfits={withdrawContractProfits}
-                    getContractProfits={getContractProfits}
-                    lotteryProfits={lotteryProfits}
-                    getWinnerAddress={getWinnerAddress}
-                    winner={winner}
-                  />
-                }
-              />
             </Routes>
+            <Box id="personal account">
+              <Account
+                account={account}
+                networkchainId={network.chainId}
+                networkname={network.name}
+                withdrawPriceContract={withdrawPriceContract}
+                handleChangeWithdraw={handleChangeWithdraw}
+                getPersonalWinnings={getPersonalWinnings}
+                addrFunds={addrFunds}
+                handleChangeAddr={handleChangeAddr}
+              />
+            </Box>
 
-            <Account
-              account={account}
-              networkchainId={network.chainId}
-              networkname={network.name}
-              withdrawPriceContract={withdrawPriceContract}
-              handleChangeWithdraw={handleChangeWithdraw}
-              getPersonalWinnings={getPersonalWinnings}
-              addrFunds={addrFunds}
-              handleChangeAddr={handleChangeAddr}
-            />
+            <Box id="Management">
+              <Management
+                lotteryAddress={lotteryAddress[42].Lottery}
+                changingTimeInterval={changingTimeInterval}
+                handleChange={handleChange}
+                getOwner={getOwner}
+                owner={owner}
+                chooseWinnerContract={chooseWinnerContract}
+                startNewLotteryContract={startNewLotteryContract}
+                changeEntryPrice={changeEntryPrice}
+                handleChangePrice={handleChangePrice}
+                getContractBalance={getContractBalance}
+                balance={balance}
+                withdrawContractProfits={withdrawContractProfits}
+                getContractProfits={getContractProfits}
+                lotteryProfits={lotteryProfits}
+                getWinnerAddress={getWinnerAddress}
+                winner={winner}
+              />
+            </Box>
+            <Box id="faq">
+              <FAQ></FAQ>
+            </Box>
+            <footer id="footer">
+              <i className="fab fa-github">&nbsp;&nbsp;&nbsp; </i>
+              <i className="fab fa-twitter">&nbsp;&nbsp;&nbsp; </i>
+              <i className="fab fa-discord">&nbsp;&nbsp;&nbsp;</i>
+              <i className="fab fa-linkedin-in">&nbsp;&nbsp;&nbsp;</i>
+              <i className="fab fa-youtube">&nbsp;&nbsp;&nbsp;</i>
+            </footer>
           </Box>
-
-          <footer id="footer">
-            <i className="fab fa-github">&nbsp;&nbsp;&nbsp; </i>
-            <i className="fab fa-twitter">&nbsp;&nbsp;&nbsp; </i>
-            <i className="fab fa-discord">&nbsp;&nbsp;&nbsp;</i>
-            <i className="fab fa-linkedin-in">&nbsp;&nbsp;&nbsp;</i>
-            <i className="fab fa-youtube">&nbsp;&nbsp;&nbsp;</i>
-          </footer>
         </Container>
       </Box>
     </ThemeProvider>

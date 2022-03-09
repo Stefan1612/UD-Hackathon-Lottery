@@ -1,12 +1,20 @@
-import { Typography, Box, Button } from "@mui/material";
+import { Typography, Box, Button, TextField } from "@mui/material";
 const Management = (props) => {
   return (
     <Box id="managementCSS">
       <Box id="contai">
-        <Box id="ManagementCSS">Management only Owner</Box>
-        <br></br>
-        Contract <span style={{ color: "rgb(172, 40, 22)" }}>deployed</span> at
-        this address:{" "}
+        <Box id="ManagementCSS">
+          <Typography>Management only Owner</Typography>
+        </Box>
+        <Typography>Contract</Typography>
+        <Typography
+          variant="p"
+          component="span"
+          style={{ color: "rgb(172, 40, 22)" }}
+        >
+          deployed
+        </Typography>{" "}
+        at this address:{" "}
         <Typography
           variant="h2"
           component="span"
@@ -14,56 +22,51 @@ const Management = (props) => {
         >
           {props.lotteryAddress}
         </Typography>
-        <br></br>
-        <br></br>
         <Button
           className="timeIntervalCSS"
           onClick={props.changingTimeInterval}
         >
           Submit new Time interval
         </Button>
-        <input
-          className="timeIntervalCSS"
-          onChange={(e) => props.handleChange(e)}
+        <TextField>
+          className="timeIntervalCSS" onChange={(e) => props.handleChange(e)}
           placeholder="Enter new time Interval"
-        ></input>
-        <br></br>
-        <Box>The contract owner is: {props.owner}</Box>
-        <br></br>
-        <Box>Winner Address: {props.winner}</Box>
+        </TextField>
+        <Box>
+          <Typography>The contract owner is: {props.owner}</Typography>
+        </Box>
+        <Box>
+          <Typography>Winner Address: {props.winner}</Typography>
+        </Box>
         <Button id="choosingWinnerCSS" onClick={props.chooseWinnerContract}>
           Choose the Winner
         </Button>
-        <br></br>
-        <br></br>
-        <Box>Start a new Lottery</Box>
+        <Box>
+          <Typography>Start a new Lottery</Typography>
+        </Box>
         <Button id="newLotteryCSS" onClick={props.startNewLotteryContract}>
           Start new Lottery
         </Button>
-        <br></br>
-        <br></br>
-        The new Entry price must be in Ether (E.g. 0.123)
-        <br></br>
+        <Typography>
+          The new Entry price must be in Ether (E.g. 0.123)
+        </Typography>
         <Button className="timeIntervalCSS" onClick={props.changeEntryPrice}>
           Submit new Entry price
         </Button>
-        <input
+        <TextField
           className="timeIntervalCSS"
           onChange={(e) => props.handleChangePrice(e)}
           placeholder="0.123"
-        ></input>
-        <br></br>
-        <br></br>
+        ></TextField>
         <Button className="withdrawCSS" onClick={props.getContractBalance}>
           Get Contract Balance in Ether:
         </Button>
-        <span> &nbsp;: {props.balance}</span>
-        <br></br>
-        <br></br>
+        <Typography component="span" variant="p">
+          &nbsp;: {props.balance}
+        </Typography>
         <Button className="withdrawCSS" onClick={props.withdrawContractProfits}>
           Withdraw Contract Profits...
         </Button>
-        <br></br>
       </Box>
     </Box>
   );

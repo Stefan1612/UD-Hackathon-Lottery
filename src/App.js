@@ -6,7 +6,7 @@ import Navbar from "./Components/Navbar.js";
 import Home from "./Components/Home.js";
 import Account from "./Components/Account.js";
 import Management from "./Components/Management.js";
-import BIRDS from "vanta/dist/vanta.birds.min";
+
 import { ethers } from "ethers";
 import lotteryABI from "./config/contracts/Lottery.json";
 import lotteryAddress from "./config/contracts/map.json";
@@ -41,12 +41,6 @@ function App() {
     provider
   );
 
-  /*eventContract.on("newParticipant", (address, time) => 
-    console.log({
-        address: address,
-        time: time.toNumber()
-    })
-)*/
   useEffect(() => {
     eventContract.on(
       "lotteryEnd",
@@ -110,7 +104,6 @@ function App() {
     res = Math.round(res * 1e4) / 1e4;
     return res;
   }
-  //const [seconds, setSeconds ] =  useState(30);
 
   useEffect(() => {
     FirstLoad();
@@ -131,12 +124,6 @@ function App() {
         method: "eth_requestAccounts",
       });
       setAccount(accounts[0]);
-
-      /*let chainid = await window.ethereum.request({method: "eth_chainId"});
-            // this line aint necessary // chainid =chainid.substr(2)
-            chainid = parseInt(chainid, 16)
-            setChainID(chainid)
-            */
     } else {
       window.alert("Install Metamask!");
     }
@@ -432,7 +419,8 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App" id="co">
+      <Header />
+      <Box className="App" id="co">
         <Container>
           <link
             rel="stylesheet"
@@ -443,9 +431,9 @@ function App() {
           />
 
           <Navbar />
-          <Header />
+
           <BackgroundImage />
-          <div id="pages">
+          <Box id="pages" sx={{ color: "white" }}>
             <Routes>
               <Route
                 exact
@@ -495,7 +483,7 @@ function App() {
                 }
               />
             </Routes>
-            ´
+
             <Account
               account={account}
               networkchainId={network.chainId}
@@ -506,7 +494,7 @@ function App() {
               addrFunds={addrFunds}
               handleChangeAddr={handleChangeAddr}
             />
-          </div>
+          </Box>
 
           <footer id="footer">
             <i className="fab fa-github">&nbsp;&nbsp;&nbsp; </i>
@@ -516,7 +504,7 @@ function App() {
             <i className="fab fa-youtube">&nbsp;&nbsp;&nbsp;</i>
           </footer>
         </Container>
-      </div>
+      </Box>
     </ThemeProvider>
   );
 }

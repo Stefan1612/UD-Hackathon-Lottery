@@ -7,9 +7,13 @@ const Management = (props) => {
         <br></br>
         Contract <span style={{ color: "rgb(172, 40, 22)" }}>deployed</span> at
         this address:{" "}
-        <span style={{ color: "rgb(172, 40, 22)" }}>
+        <Typography
+          variant="h2"
+          component="span"
+          style={{ color: "rgb(172, 40, 22)" }}
+        >
           {props.lotteryAddress}
-        </span>
+        </Typography>
         <br></br>
         <br></br>
         <Button

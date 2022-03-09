@@ -13,8 +13,8 @@ import { HashLink } from "react-router-hash-link";
 
 import { ReactComponent as LogoIcon } from "./assets/logo.svg";
 import { ReactComponent as MenuIcon } from "./assets/menu.svg";
-
-const pages = ["propose", "roadmap", "faq"];
+import LogoSimpleBlock from "./assets/LogoMakr-9qZ27k.png";
+const pages = ["Management", "personal account", "faq"];
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -34,7 +34,9 @@ function Header() {
       color="transparent"
       sx={{
         boxShadow: 0,
+        color: "white",
       }}
+      marginLeft={20}
     >
       <Toolbar
         disableGutters
@@ -50,7 +52,7 @@ function Header() {
           sx={{ p: 0, borderRadius: 1 }}
           color="inherit"
         >
-          <LogoIcon height="64px" />
+          <img src={LogoSimpleBlock} style={{ height: "5vh" }} />
         </IconButton>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -130,9 +132,9 @@ function Header() {
             component={HashLink}
             smooth
             variant="contained"
-            sx={{ fontWeight: 700 }}
+            sx={{ fontWeight: 700, backgroundColor: "#00e676" }}
           >
-            time machine
+            Lottery
           </Button>
         </Box>
       </Toolbar>

@@ -1,15 +1,17 @@
-import {Link} from "react-router-dom"
-
+import { Link } from "react-router-dom";
+import { Container, Box } from "@mui/material";
 const Navbar = () => {
-    return (
-        <div id="Navbar" > 
-            <Link to="/" className="Nav">Main  </Link>
-            
-            <Link to="/Account" className="Nav">Personal Account  </Link>
-            
-            <Link to="/Management" className="Nav">Lottery Management  </Link>
-        </div>
-    )
-}
+  return (
+    <Box id="Navbar">
+      <Link to="/" className="Nav">
+        Main{" "}
+      </Link>
 
-export default Navbar
+      <Link to="/Management" className="Nav">
+        Lottery Management{" "}
+      </Link>
+    </Box>
+  );
+};
+
+export default Navbar;

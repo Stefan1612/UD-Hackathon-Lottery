@@ -1,8 +1,27 @@
 # VRF-Lottery Status/Issues/Ideas
 
-## Small description of the project
-It's a lottery utilizing Chain Link's VRF.
-Running on kovan.
+## Status
+- Work in progress
+
+## Approach
+
+This is a lottery running on kovan using chainlink's VRF to generate proven random results.
+
+## Stack
+
+### Blockchain Technologies
+1. Environment - Hardhat
+2. Oracle - Chainlink
+3. Client ethers.js
+
+### Frontend
+- React
+- ethers.js
+- MUI: React UI Library
+
+## Backend
+- Netlify: Website host
+- Node.js
 
 ## Fundamental Issues
 Currently the Lottery is controlled by a single enitity, the owner. He is the only one that can start and choose a winner of the lottery.

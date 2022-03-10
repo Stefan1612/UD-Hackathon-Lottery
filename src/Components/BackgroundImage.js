@@ -1,5 +1,5 @@
 import BIRDS from "vanta/dist/vanta.birds.min";
-import { Container, Box } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 const BackgroundImage = () => {
   const [vantaEffect, setVantaEffect] = useState(0);
@@ -16,7 +16,7 @@ const BackgroundImage = () => {
           minWidth: 200.0,
           scale: 1.0,
           scaleMobile: 1.0,
-          backgroundColor: 0x1a1b1a,
+          backgroundColor: 0x212121,
           color1: 0x4ea463,
           color2: 0x5c5640,
           birdSize: 1.2,
@@ -40,7 +40,16 @@ const BackgroundImage = () => {
         position: "absolute",
       }}
       ref={myRef}
-    />
+    >
+      <Box sx={{ marginLeft: "25vw", color: "white" }}>
+        <Typography marginTop={28} component="h1" variant="h1">
+          Ethereum Lottery
+        </Typography>
+        <Typography marginTop={2} component="h2" variant="h2">
+          Running on Kovan!
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

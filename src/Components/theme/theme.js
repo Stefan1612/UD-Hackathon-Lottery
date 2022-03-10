@@ -17,12 +17,12 @@ const basicTheme = createTheme({
     h1: {
       lineHeight: "122.19%",
       fontSize: 48,
+      fontWeight: "700",
+      textTransform: "uppercase",
     },
     h2: {
       fontSize: 28,
       fontWeight: "700",
-      textTransform: "uppercase",
-      textAlign: "center",
     },
     h3: {
       fontSize: 22,

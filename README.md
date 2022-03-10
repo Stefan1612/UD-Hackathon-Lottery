@@ -4,7 +4,7 @@
 - Work in progress
 ### To-do's
 - Rewrite more detailed tests
-- Rewrite the frontend to utelize events
+- Rewrite the frontend to utilize events
 
 ## Approach
 

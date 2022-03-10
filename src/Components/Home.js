@@ -4,50 +4,74 @@ const Home = (props) => {
   return (
     <Box id="HomeId">
       {/* <img id="image" src="https://c.pxhere.com/photos/c3/a0/casino_roulette_table_the_dealer_game_fun_addiction_pleasure-993952.jpg!d"></img> */}
+
       <Box>
-        <Typography marginTop={22} component="h1" variant="h1">
-          Ethereum Lottery
-        </Typography>
-        <Typography marginTop={2} component="h2" variant="h2">
-          Running on Kovan!
-        </Typography>
-      </Box>
-      <Box>
-        <Box>
-          <Typography marginTop={"65vh"} sx={{ color: "black" }}>
+        <Box paddingTop={10}>
+          <Typography variant="h1" component="h3">
             {props.isLotteryRunning}
           </Typography>
 
-          <Box>Last Lottery started at: {props.startTime}</Box>
+          <Typography>Last Lottery started at: {props.startTime}</Typography>
+          <Typography>
+            Minimun amount of time the Lottery is going to run: {props.time}{" "}
+            seconds
+          </Typography>
         </Box>
 
-        <Box>
-          Current Price Pool in Ether
-          <Typography component="span" variant="p" style={{ fontSize: "150%" }}>
-            {props.currentPool}
-          </Typography>
-          {ethers.constants.EtherSymbol}
+        <Box
+          textAlign={"center"}
+          marginTop={"10vh"}
+          sx={{
+            backgroundColor: "#424242",
+            marginX: "17vw",
+            borderRadius: "15px",
+            padding: "calc(0.7vw + 0.7vh)",
+          }}
+        >
           <Box>
-            Entry cost: {props.price} ether
-            {ethers.constants.EtherSymbol}
-            <Button onClick={props.enterPoolContract}>
-              Buy Lottery Ticket
-            </Button>
+            <Typography component="h3" variant="h3">
+              Current Price Pool in Ether:
+            </Typography>
+            <Typography
+              component="span"
+              variant="p"
+              style={{ fontSize: "550%" }}
+            >
+              {props.currentPool} {ethers.constants.EtherSymbol}
+            </Typography>
+          </Box>
+          <Box>
+            <Typography variant={"H3"} component={"p"}>
+              Entry cost: {props.price} ether
+            </Typography>
+            <Typography>
+              <Button onClick={props.enterPoolContract} variant={"outlined"}>
+                Buy Lottery Ticket
+              </Button>
+            </Typography>
           </Box>
         </Box>
 
-        <Box>
-          Minimun amount of time the Lottery is going to run: {props.time}{" "}
-          seconds
+        <Box
+          marginTop={"5vh"}
+          sx={{
+            backgroundColor: "#424242",
+            padding: "calc(0.7vw + 0.7vh)",
+            borderRadius: "15px",
+          }}
+        >
+          <Typography component={"p"} variant={"h3"}>
+            {props.winner === "0x0000000000000000000000000000000000000000"
+              ? "The winner will be announced here"
+              : "Congratulations " + props.winner + "you've won the price"}
+            !
+          </Typography>
         </Box>
 
         <Box>
-          Congratulations to
-          {props.winner} !
-        </Box>
-
-        <Box>
-          Current Participants: <Box>{props.playerArray}</Box>
+          <Typography marginTop={"3vh"} component="p" variant="p">
+            Current Participants: <Box>{props.playerArray}</Box>
+          </Typography>
         </Box>
       </Box>
     </Box>

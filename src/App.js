@@ -1,8 +1,8 @@
 import "./App.css";
 
-import React, { useState, useEffect, useRef } from "react";
-import { Route, Link, Routes } from "react-router-dom";
-import Navbar from "./Components/Navbar";
+import React, { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+
 import Home from "./Components/Home";
 import Account from "./Components/Account";
 import Management from "./Components/Management";
@@ -14,7 +14,7 @@ import { Container, Box, ThemeProvider } from "@mui/material";
 import BackgroundImage from "./Components/BackgroundImage";
 import Header from "./Components/Header";
 import theme from "./Components/theme/theme";
-const { utils, BigNumber } = require("ethers");
+const { utils } = require("ethers");
 
 function App() {
   //running on kovan
@@ -81,12 +81,12 @@ function App() {
     setLengthPlayerArray(array);
 
     let memoryArray = [];
-    if (array == 0) {
+    if (array === 0) {
       setPlayerArray(["There are no participants yet"]);
     } else {
       for (let i = 0; i < array; i++) {
         let data = await contract.participants(i);
-        if (i == 0) {
+        if (i === 0) {
           memoryArray.push(data);
         } else {
           memoryArray.push(", " + data);
@@ -398,7 +398,7 @@ function App() {
     setCurrentUnix(Math.round(new Date().getTime() / 1000));
     if (
       (currentUnix >= endTime && lengthPlayerArray >= 2) ||
-      lotteryBool == false
+      lotteryBool === false
     ) {
       setIsLotteryRunning("Currently no lottery running!");
     } else {
@@ -420,7 +420,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Box>
+      <BackgroundImage />
+      <Box
+        id="background"
+        marginTop={"90vh"}
+        sx={{ backgroundColor: "#212121" }}
+      >
         <Container>
           <link
             rel="stylesheet"
@@ -430,7 +435,6 @@ function App() {
             referrerPolicy="no-referrer"
           />
 
-          <BackgroundImage />
           <Box sx={{ color: "white" }}>
             <Routes>
               <Route
@@ -456,6 +460,7 @@ function App() {
                 }
               />
             </Routes>
+
             <Box id="personal account">
               <Account
                 account={account}

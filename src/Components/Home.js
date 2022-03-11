@@ -13,8 +13,10 @@ const Home = (props) => {
 
           <Typography>Last Lottery started at: {props.startTime}</Typography>
           <Typography>
-            Minimun amount of time the Lottery is going to run: {props.time}{" "}
-            seconds
+            Minimun amount of time the Lottery is going to run:{" "}
+            <Typography variant={"h3"} sx={{ color: "#00e676" }}>
+              {props.time} seconds
+            </Typography>
           </Typography>
         </Box>
 
@@ -45,7 +47,7 @@ const Home = (props) => {
               Entry cost: {props.price} ether
             </Typography>
             <Typography>
-              <Button onClick={props.enterPoolContract} variant={"outlined"}>
+              <Button onClick={props.enterPoolContract} variant={"contained"}>
                 Buy Lottery Ticket
               </Button>
             </Typography>

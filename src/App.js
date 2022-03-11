@@ -14,6 +14,7 @@ import { Container, Box, ThemeProvider } from "@mui/material";
 import BackgroundImage from "./Components/BackgroundImage";
 import Header from "./Components/Header";
 import theme from "./Components/theme/theme";
+import BasicModal from "./Components/Modal";
 const { utils } = require("ethers");
 
 function App() {
@@ -494,6 +495,7 @@ function App() {
                 winner={winner}
               />
             </Box>
+
             <Box id="faq">
               <FAQ></FAQ>
             </Box>

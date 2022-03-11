@@ -17,7 +17,7 @@ const Management = (props) => {
   const handleClose = () => setOpen(false);
   return (
     <Box>
-      <div>
+      <div style={{ marginTop: "11vh" }}>
         <Button onClick={handleOpen} variant={"contained"}>
           Open Management
         </Button>

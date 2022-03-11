@@ -47,7 +47,11 @@ const Home = (props) => {
               Entry cost: {props.price} ether
             </Typography>
             <Typography>
-              <Button onClick={props.enterPoolContract} variant={"contained"}>
+              <Button
+                onClick={props.enterPoolContract}
+                variant={"contained"}
+                id="entryButton"
+              >
                 Buy Lottery Ticket
               </Button>
             </Typography>

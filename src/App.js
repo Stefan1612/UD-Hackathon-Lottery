@@ -420,11 +420,11 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Header />
+      <Header FirstLoad={FirstLoad} />
       <BackgroundImage />
       <Box
         id="background"
-        marginTop={"90vh"}
+        marginTop={"58vh"}
         sx={{ backgroundColor: "#212121" }}
       >
         <Container>
@@ -437,31 +437,34 @@ function App() {
           />
 
           <Box sx={{ color: "white" }}>
-            <Routes>
-              <Route
-                exact
-                path="/"
-                element={
-                  <Home
-                    isLotteryRunning={isLotteryRunning}
-                    startTime={startTime}
-                    getLotteryEndingTime={getLotteryEndingTime}
-                    getCurrentPool={getCurrentPool}
-                    currentPool={currentPool}
-                    getTime={getTime}
-                    time={time}
-                    getPrice={getPrice}
-                    price={price}
-                    getWinnerAddress={getWinnerAddress}
-                    winner={winner}
-                    enterPoolContract={enterPoolContract}
-                    getContractParticipantsArray={getContractParticipantsArray}
-                    playerArray={playerArray}
-                  />
-                }
-              />
-            </Routes>
-
+            <Box id="entry">
+              <Routes>
+                <Route
+                  exact
+                  path="/"
+                  element={
+                    <Home
+                      isLotteryRunning={isLotteryRunning}
+                      startTime={startTime}
+                      getLotteryEndingTime={getLotteryEndingTime}
+                      getCurrentPool={getCurrentPool}
+                      currentPool={currentPool}
+                      getTime={getTime}
+                      time={time}
+                      getPrice={getPrice}
+                      price={price}
+                      getWinnerAddress={getWinnerAddress}
+                      winner={winner}
+                      enterPoolContract={enterPoolContract}
+                      getContractParticipantsArray={
+                        getContractParticipantsArray
+                      }
+                      playerArray={playerArray}
+                    />
+                  }
+                />
+              </Routes>
+            </Box>
             <Box id="personal account">
               <Account
                 account={account}

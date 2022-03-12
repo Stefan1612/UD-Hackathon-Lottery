@@ -39,7 +39,7 @@ function App() {
     lotteryABI.abi,
     provider
   );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     eventContract.on(
       "lotteryEnd",
@@ -52,9 +52,9 @@ function App() {
         (winnerAddressEvent, totalCurrentPoolEvent, timeEvent) =>
           getWinnerAddress()
       );
-    };
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     eventContract.on("newLotteryStarted", (winnerAddressEvent) =>
       getWinnerAddress()
@@ -63,7 +63,7 @@ function App() {
       eventContract.removeListener("newLotteryStarted", (winnerAddressEvent) =>
         getWinnerAddress()
       );
-    };
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [playerArray, setPlayerArray] = useState([]);
@@ -103,7 +103,7 @@ function App() {
     res = Math.round(res * 1e4) / 1e4;
     return res;
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     FirstLoad();
     gf();
@@ -114,7 +114,7 @@ function App() {
     getPrice();
     getWinnerAddress();
     getLotteryEndingTime();
-    getCurrentUnixTime();
+    getCurrentUnixTime(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function FirstLoad() {
@@ -139,12 +139,12 @@ function App() {
     // We recommend reloading the page, unless you must do otherwise
     window.location.reload();
   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     window.ethereum.on("accountsChanged", handleAccountsChanged);
     return () => {
       window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
-    };
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // For now, 'eth_accounts' will continue to always return an array

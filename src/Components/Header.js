@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import { HashLink } from "react-router-hash-link";
 
-import { ReactComponent as LogoIcon } from "./assets/logo.svg";
 import { ReactComponent as MenuIcon } from "./assets/menu.svg";
 import LogoSimpleBlock from "./assets/LogoMakr-9qZ27k.png";
 const pages = ["Management", "personal account", "faq"];
@@ -51,8 +50,13 @@ function Header({ FirstLoad }) {
           href="/"
           sx={{ p: 0, borderRadius: 1 }}
           color="inherit"
+          s
         >
-          <img src={LogoSimpleBlock} style={{ height: "5vh" }} />
+          <img
+            alt="SimpleBlock's Logo"
+            src={LogoSimpleBlock}
+            style={{ height: "5vh" }}
+          />
         </IconButton>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>

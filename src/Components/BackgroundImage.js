@@ -1,5 +1,5 @@
 import BIRDS from "vanta/dist/vanta.birds.min";
-import { Container, Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
 const BackgroundImage = () => {
   const [vantaEffect, setVantaEffect] = useState(0);

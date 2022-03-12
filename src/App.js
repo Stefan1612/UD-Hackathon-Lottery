@@ -14,14 +14,12 @@ import { Container, Box, ThemeProvider } from "@mui/material";
 import BackgroundImage from "./Components/BackgroundImage";
 import Header from "./Components/Header";
 import theme from "./Components/theme/theme";
-import BasicModal from "./Components/Modal";
 const { utils } = require("ethers");
 
 function App() {
   //running on kovan
 
   const [account, setAccount] = useState("");
-  // const [chainID, setChainID] = useState("")
 
   const [currentPool, setCurrentPool] = useState("");
 
@@ -55,7 +53,7 @@ function App() {
           getWinnerAddress()
       );
     };
-  }, []);
+  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     eventContract.on("newLotteryStarted", (winnerAddressEvent) =>
@@ -66,7 +64,7 @@ function App() {
         getWinnerAddress()
       );
     };
-  }, []);
+  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const [playerArray, setPlayerArray] = useState([]);
   const [lengthPlayerArray, setLengthPlayerArray] = useState();
@@ -99,7 +97,7 @@ function App() {
 
   function bigNumIntoEther4Decimals(data) {
     // from stackexchange https://ethereum.stackexchange.com/questions/84004/ethers-formatetherwei-with-max-4-decimal-places/97885
-    let remainder = data.mod(1e14);
+    // let remainder = data.mod(1e14);
     //console.log(utils.formatEther(data.sub(remainder)));
     let res = utils.formatEther(data);
     res = Math.round(res * 1e4) / 1e4;
@@ -117,7 +115,7 @@ function App() {
     getWinnerAddress();
     getLotteryEndingTime();
     getCurrentUnixTime();
-  }, []);
+  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   async function FirstLoad() {
     if (typeof window.ethereum !== undefined) {
@@ -147,7 +145,7 @@ function App() {
     return () => {
       window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
     };
-  }, []);
+  }, []); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   // For now, 'eth_accounts' will continue to always return an array
   function handleAccountsChanged(accounts) {

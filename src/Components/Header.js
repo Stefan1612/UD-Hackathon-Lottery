@@ -11,12 +11,11 @@ import {
 } from "@mui/material";
 import { HashLink } from "react-router-hash-link";
 
-import { ReactComponent as LogoIcon } from "./assets/logo.svg";
 import { ReactComponent as MenuIcon } from "./assets/menu.svg";
 import LogoSimpleBlock from "./assets/LogoMakr-9qZ27k.png";
 const pages = ["Management", "personal account", "faq"];
 
-function Header() {
+function Header({ FirstLoad }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -51,8 +50,13 @@ function Header() {
           href="/"
           sx={{ p: 0, borderRadius: 1 }}
           color="inherit"
+          s
         >
-          <img src={LogoSimpleBlock} style={{ height: "5vh" }} />
+          <img
+            alt="SimpleBlock's Logo"
+            src={LogoSimpleBlock}
+            style={{ height: "5vh" }}
+          />
         </IconButton>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -127,7 +131,7 @@ function Header() {
             </Button>
           ))}
           <Button
-            to="#time-machine"
+            to="#entry"
             size="medium"
             component={HashLink}
             smooth
@@ -138,6 +142,18 @@ function Header() {
           </Button>
         </Box>
       </Toolbar>
+      <Box sx={{ marginLeft: "25vw" }} marginTop={34}>
+        <Button variant="contained">
+          <a href="#entryButton">Enter</a>
+        </Button>
+        <Button
+          variant="outlined"
+          sx={{ marginLeft: "5px" }}
+          onClick={(e) => FirstLoad()}
+        >
+          Metamask
+        </Button>
+      </Box>
     </AppBar>
   );
 }

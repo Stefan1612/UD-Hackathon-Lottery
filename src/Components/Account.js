@@ -55,10 +55,10 @@ const Account = (props) => {
                 >
                   Check Winnings related to addresse {props.addrFunds}
                 </Button>
-                <Box width={"9.5vw"} margin={"auto"}>
+                <Box textAlign={"center"}>
                   <TextField
                     onChange={(e) => props.handleChangeAddr(e.target.value)}
-                    placeholder="Enter new address to check winnings"
+                    placeholder="Check winnings of..."
                   ></TextField>
                 </Box>
               </Box>
@@ -90,7 +90,7 @@ const Account = (props) => {
               <Box textAlign={"center"} marginTop={"calc(1.3vh + 1.3vw)"}>
                 <TextField
                   onChange={(e) => props.handleChangeWithdraw(e.target.value)}
-                  placeholder="Enter new address to receive the funds"
+                  placeholder="Receiver of Funds..."
                 ></TextField>
               </Box>
             </Box>

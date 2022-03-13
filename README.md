@@ -3,10 +3,8 @@
 ## Status
 - Work in progress
 ### To-do's
-- Rewrite more detailed tests
 - Rewrite the frontend to utilize events
 - Governments protocol
-- Host website on netlify
 
 ## Approach
 

@@ -1,6 +1,7 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 const { utils } = require("ethers");
+
 describe("Lottery basics", () => {
   let lt;
   beforeEach(async () => {
@@ -14,7 +15,7 @@ describe("Lottery basics", () => {
     await lt.deployed();
   });
 
-  /* it("should show TotalCurrentPool", async () => {
+  it("should show TotalCurrentPool", async () => {
     // currentPool of ether inside the contract should be 0
     expect(await lt.totalCurrentPool()).to.equal("0");
   });
@@ -49,13 +50,13 @@ describe("Lottery basics", () => {
   it("should return the contract balance", async () => {
     // nobody entered the lobby yet. contract balance should equal 0
     expect(await lt.getBalance()).to.equal("0");
-  }); 
+  });
   it("should return the array length of 0", async () => {
     expect(await lt.getArrayLength()).to.equal("0");
-  });*/
+  });
 });
 
-describe("Lottery basics", () => {
+describe("Lottery unit advanced", () => {
   let lt;
   beforeEach(async () => {
     const LT = await ethers.getContractFactory("Lottery");
@@ -79,6 +80,13 @@ describe("Lottery basics", () => {
       value: utils.parseUnits("0.002", "ether"),
     });
     expect(await lt.getArrayLength()).to.equal("3");
+    // waiting for the time interval to end (10 seconds). Nobody should be allowed to enter afterwards (unless only 1 participant inside the lottery)
+    await ethers.provider.send("evm_increaseTime", [11]);
+    await expect(
+      lt.enterPool({
+        value: utils.parseUnits("0.002", "ether"),
+      })
+    ).to.be.revertedWith("You cannot enter this pool anymore");
   });
   it("should not enter the pool due to using incorrect msg.value", async () => {
     // sending the wrong msg.value - 1. underpay - 2. overpay
@@ -96,35 +104,58 @@ describe("Lottery basics", () => {
     ).to.be.revertedWith("You need to pay the exact price");
   });
   it("should enter the pool 1 time and enter the pool a second time after the time interval (10 seconds) and still work", async () => {
-    // entering the pool within the inital time interval three times
+    // entering the pool within the inital time interval once
     await lt.enterPool({
       value: utils.parseUnits("0.002", "ether"),
     });
 
-    console.log(1);
-    async function newStyleDelay() {
-      await setTimeout(async function () {
-        await lt.enterPool({
-          value: utils.parseUnits("0.002", "ether"),
-        }), 12000);
-      console.log("It will be printed 3-rd with delay");
-    }
-
-    newStyleDelay();
-
-    /*   setTimeout(async function () {
-      await lt.enterPool({
-        value: utils.parseUnits("0.002", "ether"),
-      });
-    }, 12000); */
-
-    console.log(12);
+    // waiting for the time interval to run out
+    await ethers.provider.send("evm_increaseTime", [3600]);
+    // due to only 1 participant inside the lottery, the lottery will wait for a second participate
+    await lt.enterPool({
+      value: utils.parseUnits("0.002", "ether"),
+    });
   });
-  /*  it("should change the lottery entry price from 0.002 to 0.003", async () => {
-    await lt.entryPriceInWei(0.003);
-    expect(utils.formatEther(await lt.price())).to.equal("0.003");
-   it("should change the lottery time interval from 10 to 20 seconds", async () => {
-    await lt.settingTimeInSeconds(20);
-    expect(await lt.time()).to.equal("20");
-  });  */
+
+  it("should not change the lottery entry price from 0.002 to 0.003 because a lottery is running", async () => {
+    await expect(
+      lt.entryPriceInWei(utils.parseUnits("0.002", "ether"))
+    ).to.be.revertedWith(
+      "You can only change the entry price after the winner has been chosen!"
+    );
+    expect(utils.formatEther(await lt.price())).to.equal("0.002");
+  });
+  it("should not change the lottery time interval from 10 to 20 seconds because a lottery is running", async () => {
+    await expect(lt.settingTimeInSeconds(20)).to.be.revertedWith(
+      "You can only change the time after the winner has been chosen!"
+    );
+    expect(await lt.time()).to.equal("10");
+  });
+  it("should not choose a winner after entering the lottery 1 times and waiting till time runs out", async () => {
+    // getting 3 different addresses
+    const [owner, addr1, addr2] = await ethers.getSigners();
+    // entering the pool 3 times with individual addresses
+    await lt.enterPool({
+      value: utils.parseUnits("0.002", "ether"),
+    });
+    await expect(await lt.chooseWinner()).to.be.revertedWith(
+      "The lottery has not ended yet"
+    );
+    await lt.connect(addr1).enterPool({
+      value: utils.parseUnits("0.002", "ether"),
+    });
+    await lt.connect(addr2).enterPool({
+      value: utils.parseUnits("0.002", "ether"),
+    });
+    // checking that the array includes all new entries
+    expect(await lt.getArrayLength()).to.equal("3");
+    // checking each individual index to check if different addresses are picked up and saved correctly
+    expect(await lt.participants(0)).to.equal(owner.address);
+    expect(await lt.participants(1)).to.equal(addr1.address);
+    expect(await lt.participants(2)).to.equal(addr2.address);
+
+    await expect(lt.chooseWinner()).to.be.revertedWith(
+      "The lottery has not ended yet"
+    );
+  });
 });

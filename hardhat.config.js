@@ -52,6 +52,7 @@ module.exports = {
       },
     },
   },
+  // increasing the timeout for VRF tests. They take longer than usual tests
   mocha: {
     timeout: 3000000,
   },

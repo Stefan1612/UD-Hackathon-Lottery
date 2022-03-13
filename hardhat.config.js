@@ -20,7 +20,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 module.exports = {
   solidity: "0.8.7",
-  defaultNetwork: "localhost",
+  defaultNetwork: "kovan",
   networks: {
     hardhat: {
       chainId: 1337, // default is 31337: https://hardhat.org/metamask-issue.html
@@ -51,5 +51,9 @@ module.exports = {
         runs: 200,
       },
     },
+  },
+  // increasing the timeout for VRF tests. They take longer than usual tests
+  mocha: {
+    timeout: 3000000,
   },
 };

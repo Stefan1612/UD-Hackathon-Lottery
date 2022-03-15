@@ -11,10 +11,16 @@ const Home = (props) => {
             {props.isLotteryRunning}
           </Typography>
 
-          <Typography>Last Lottery started at: {props.startTime}</Typography>
+          <Typography variant={"p"} component={"span"}>
+            Last Lottery started at: {props.startTime}
+          </Typography>
           <Typography>
             Minimun amount of time the Lottery is going to run:{" "}
-            <Typography variant={"h3"} sx={{ color: "#00e676" }}>
+            <Typography
+              variant={"h3"}
+              component={"h3"}
+              sx={{ color: "#00e676" }}
+            >
               {props.time} seconds
             </Typography>
           </Typography>
@@ -36,17 +42,19 @@ const Home = (props) => {
             </Typography>
             <Typography
               component="span"
-              variant="p"
+              variant="span"
               style={{ fontSize: "550%" }}
             >
               {props.currentPool} {ethers.constants.EtherSymbol}
             </Typography>
           </Box>
           <Box>
-            <Typography variant={"H3"} component={"p"}>
+            <Typography variant={"H3"} component={"span"}>
               Entry cost: {props.price} ether
             </Typography>
-            <Typography>
+
+            <br />
+            <Typography component={"span"} variant={"p"}>
               <Button
                 onClick={props.enterPoolContract}
                 variant={"contained"}
@@ -66,10 +74,10 @@ const Home = (props) => {
             borderRadius: "15px",
           }}
         >
-          <Typography component={"p"} variant={"h3"}>
+          <Typography component={"h3"} variant={"h3"}>
             {props.winner === "0x0000000000000000000000000000000000000000"
               ? "The winner will be announced here"
-              : "Congratulations " + props.winner + "you've won the price"}
+              : "Congratulations " + props.winner + " you've won the price"}
             !
           </Typography>
         </Box>

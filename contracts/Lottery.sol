@@ -41,6 +41,7 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
             "You can only change the time after the winner has been chosen!"
         );
         time = newTime;
+        emit timeChange(time);
     }
 
     // keeping track of the past winnings of individuals to withdraw
@@ -65,6 +66,7 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
             "You can only change the entry price after the winner has been chosen!"
         );
         price = newPrice;
+        emit priceChange(price);
     }
 
     // winner of the last lottery
@@ -89,9 +91,16 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
         startTime = block.timestamp;
         endTime = block.timestamp + time;
     }
-
+    // entry price change
+    event priceChange(
+        uint indexed newPrice
+    );
+    // lottery time interval change
+    event timeChange(
+        uint indexed newTime
+    );
     // emitting lottery ended, winner, and his price
-    event lotteryEnd(
+    event winnerHasBeenChosen(
         address indexed _winner,
         uint256 indexed totalWinning,
         uint256 indexed time
@@ -200,7 +209,7 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
         delete participants;
 
         // emit that winner has been chosen and he can retrieve his winnings
-        emit lotteryEnd(winner, totalCurrentPool, block.timestamp);
+        emit winnerHasBeenChosen(winner, totalCurrentPool, block.timestamp);
         totalCurrentPool = 0;
         winnerChosen = true;*/
     }
@@ -221,7 +230,7 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
         delete participants;
 
         // emit that winner has been chosen and he can retrieve his winnings
-        emit lotteryEnd(winner, totalCurrentPool, block.timestamp);
+        emit winnerHasBeenChosen(winner, totalCurrentPool, block.timestamp);
         totalCurrentPool = 0;
         winnerChosen = true;
     }

@@ -36,15 +36,16 @@ const Management = (props) => {
                 <Box>
                   <Typography>Management only Owner</Typography>
                 </Box>
-                <Typography>Contract</Typography>
-                <Typography variant="p" component="span">
-                  deployed
+                <Typography variant="span" component="span">
+                  Contract deployed &nbsp;
                 </Typography>
-                at this address:
-                <Typography variant="p" component="span">
-                  {props.lotteryAddress.substring(0, 5) +
-                    "..." +
-                    props.lotteryAddress.substring(38)}
+                at this address: &nbsp;
+                <Typography
+                  variant="span"
+                  component="p"
+                  fontSize={"calc(0.5vh + 0.5vw)"}
+                >
+                  {props.lotteryAddress}
                 </Typography>
                 <Button
                   variant={"outlined"}
@@ -134,7 +135,7 @@ const Management = (props) => {
                 >
                   Get Contract Balance in Ether
                 </Button>
-                <Typography component="span" variant="p">
+                <Typography component="span" variant="span">
                   &nbsp;
                   {props.balance
                     ? props.balance

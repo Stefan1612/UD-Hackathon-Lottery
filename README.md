@@ -28,7 +28,7 @@ This is a lottery running on kovan using chainlink's VRF to generate proven rand
 
 ## Fundamental Issues
 Currently the Lottery is controlled by a single enitity, the owner. He is the only one that can start and choose a winner of the lottery.
-He is also the only one that can change the entry Price and the time amount the lottery is minimun running for.
+He is also the only one that can change the entry Price and the time period the lottery is minimun running for.
 ## Ways to solve the problems
 One way to fix this kind of centralized contract, is to introduce a governments protocol which would control all functions mentioned above.
 This way a community could control the lottery.

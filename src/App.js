@@ -47,6 +47,7 @@ function App() {
       setLotteryBool(true);
       /* startLotteryCountdown(time); */
       setEventTime();
+      setStartTimeEvent();
       setCurrentPool(0);
       setWinner("0x0000000000000000000000000000000000000000");
       setPlayerArray([]);
@@ -85,6 +86,7 @@ function App() {
         setLotteryBool(true);
         /* startLotteryCountdown(time); */
         setEventTime();
+        setStartTimeEvent();
         setCurrentPool(0);
         setWinner("0x0000000000000000000000000000000000000000");
         setPlayerArray([]);
@@ -123,10 +125,20 @@ function App() {
 
     setEndTime(data);
   }
-  function setEventCurrentPool() {
+  async function setStartTimeEvent() {
+    const contract = new ethers.Contract(
+      lotteryAddress[42].Lottery,
+      lotteryABI.abi,
+      provider
+    );
+    let data = await contract.startTime();
+    data = data.toNumber();
+    setStartTime(data);
+  }
+  /* function setEventCurrentPool() {
     console.log(price);
     setCurrentPool((poolbefore) => poolbefore + price);
-  }
+  } */
 
   const [playerArray, setPlayerArray] = useState([]);
   const [lengthPlayerArray, setLengthPlayerArray] = useState();
@@ -175,6 +187,7 @@ function App() {
     getPrice();
     getWinnerAddress();
     setEventTime();
+    setStartTimeEvent();
     getCurrentUnixTime(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

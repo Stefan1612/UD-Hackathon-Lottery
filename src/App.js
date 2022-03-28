@@ -46,8 +46,10 @@ function App() {
       console.log("newLotteryStarted at " + Unixtime);
       setLotteryBool(true);
       /* startLotteryCountdown(time); */
-      setEndTime(Unixtime + time);
-      window.location.reload();
+      setEventTime(Unixtime);
+      setCurrentPool(0);
+      setWinner("0x0000000000000000000000000000000000000000");
+      setPlayerArray([]);
     });
     // listens for the random result being successfully generated and the winner of the lottery to be selected
     eventContract.on(
@@ -61,7 +63,7 @@ function App() {
     // event to listen for new participants entering the lottery
     eventContract.on("newParticipant", (newEntry, time) => {
       console.log("new entry, new participant= " + newEntry);
-      setCurrentPool((poolbefore) => poolbefore + price);
+      setEventCurrentPool();
       getContractParticipantsArray();
     });
     // listens for time interval change
@@ -80,8 +82,10 @@ function App() {
         console.log("newLotteryStarted at " + Unixtime);
         setLotteryBool(true);
         /* startLotteryCountdown(time); */
-        setEndTime(Unixtime + time);
-        window.location.reload();
+        setEventTime(Unixtime);
+        setCurrentPool(0);
+        setWinner("0x0000000000000000000000000000000000000000");
+        setPlayerArray([]);
       });
       eventContract.removeListener(
         "winnerHasBeenChosen",
@@ -93,7 +97,7 @@ function App() {
       );
       eventContract.removeListener("newParticipant", (newEntry, time) => {
         console.log("new entry, new participant= " + newEntry);
-        setCurrentPool((poolbefore) => poolbefore + price);
+        setEventCurrentPool();
         getContractParticipantsArray();
       });
       eventContract.removeListener("timeChange", (time) => {
@@ -106,10 +110,15 @@ function App() {
       });
     }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  function startLotteryCountdown(timeUnix) {
-    const startTime = timeUnix;
-    const endingTime = timeUnix + time;
+  function setEventTime(Unixtime) {
+    console.log(Unixtime + time);
+    setEndTime(Unixtime + time);
   }
+  function setEventCurrentPool() {
+    console.log(price);
+    setCurrentPool((poolbefore) => poolbefore + price);
+  }
+
   const [playerArray, setPlayerArray] = useState([]);
   const [lengthPlayerArray, setLengthPlayerArray] = useState();
 
@@ -156,7 +165,6 @@ function App() {
     getOwner();
     getPrice();
     getWinnerAddress();
-    getLotteryEndingTime();
     getCurrentUnixTime(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -429,22 +437,6 @@ function App() {
   // unix time when lottery started
   const [startTime, setStartTime] = useState();
 
-  // fetching saving of lottery ending and starting time
-  async function getLotteryEndingTime() {
-    const contract = new ethers.Contract(
-      lotteryAddress[42].Lottery,
-      lotteryABI.abi,
-      provider
-    );
-    let data = await contract.endTime();
-    data = data.toNumber();
-    setEndTime(data);
-
-    data = await contract.startTime();
-    data = data.toNumber();
-    setStartTime(data);
-  }
-
   // currentUnix time
   const [currentUnix, setCurrentUnix] = useState(
     Math.round(new Date().getTime() / 1000)
@@ -503,7 +495,6 @@ function App() {
                     <Home
                       isLotteryRunning={isLotteryRunning}
                       startTime={startTime}
-                      getLotteryEndingTime={getLotteryEndingTime}
                       getCurrentPool={getCurrentPool}
                       currentPool={currentPool}
                       getTime={getTime}

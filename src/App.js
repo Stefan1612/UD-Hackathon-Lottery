@@ -46,7 +46,7 @@ function App() {
       console.log("newLotteryStarted at " + Unixtime);
       setLotteryBool(true);
       /* startLotteryCountdown(time); */
-      setEventTime(Unixtime);
+      setEventTime();
       setCurrentPool(0);
       setWinner("0x0000000000000000000000000000000000000000");
       setPlayerArray([]);
@@ -63,8 +63,9 @@ function App() {
     // event to listen for new participants entering the lottery
     eventContract.on("newParticipant", (newEntry, time) => {
       console.log("new entry, new participant= " + newEntry);
-      setEventCurrentPool();
+      // setEventCurrentPool();
       getContractParticipantsArray();
+      getCurrentPool();
     });
     // listens for time interval change
     eventContract.on("timeChange", (time) => {
@@ -77,12 +78,13 @@ function App() {
       setPrice(bigNumIntoEther4Decimals(price));
     });
 
+    //removing all old event Listeners
     return () => {
       eventContract.on("newLotteryStarted", (Unixtime) => {
         console.log("newLotteryStarted at " + Unixtime);
         setLotteryBool(true);
         /* startLotteryCountdown(time); */
-        setEventTime(Unixtime);
+        setEventTime();
         setCurrentPool(0);
         setWinner("0x0000000000000000000000000000000000000000");
         setPlayerArray([]);
@@ -97,8 +99,9 @@ function App() {
       );
       eventContract.removeListener("newParticipant", (newEntry, time) => {
         console.log("new entry, new participant= " + newEntry);
-        setEventCurrentPool();
+        // setEventCurrentPool();
         getContractParticipantsArray();
+        getCurrentPool();
       });
       eventContract.removeListener("timeChange", (time) => {
         console.log("time changed to: " + time);
@@ -110,9 +113,15 @@ function App() {
       });
     }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  function setEventTime(Unixtime) {
-    console.log(Unixtime + time);
-    setEndTime(Unixtime + time);
+  async function setEventTime() {
+    const contract = new ethers.Contract(
+      lotteryAddress[42].Lottery,
+      lotteryABI.abi,
+      provider
+    );
+    let data = await contract.endTime();
+
+    setEndTime(data);
   }
   function setEventCurrentPool() {
     console.log(price);
@@ -165,6 +174,7 @@ function App() {
     getOwner();
     getPrice();
     getWinnerAddress();
+    setEventTime();
     getCurrentUnixTime(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

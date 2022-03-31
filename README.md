@@ -37,4 +37,5 @@ This way a community could control the lottery.
   
 ## Ways to solve the problems
 1) Using a future time event based on future block NUMBER is a better version to deal with these kind of contracts.
+## Challenges
 

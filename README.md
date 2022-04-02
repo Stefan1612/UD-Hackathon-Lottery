@@ -39,5 +39,7 @@ This way a community could control the lottery.
   
 ## Solutions
 1) Using a future time event based on future block NUMBER is a better version to deal with these kind of contracts.
-## Challenges
-
+## Challenges Overcome
+1. Integration VRF tests
+2. VRF random Number
+3. 

@@ -42,4 +42,3 @@ This way a community could control the lottery.
 ## Challenges Overcome
 1. Integration VRF tests
 2. VRF random Number
-3. 

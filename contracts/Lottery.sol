@@ -47,7 +47,7 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
     // keeping track of the past winnings of individuals to withdraw
 
     //private
-    mapping(address => uint256) private winners;
+    mapping(address => uint256) public winners;
 
     //Initialized as timestamp when the contract got deployed but will also be refreshed everytime
     //a new lottery has started to the current block.timestamp

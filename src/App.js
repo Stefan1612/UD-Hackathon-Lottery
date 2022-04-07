@@ -28,7 +28,9 @@ function App() {
   const [price, setPrice] = useState("");
   const [winner, setWinner] = useState("");
   const [balance, setBalance] = useState("");
-  const [addrFunds, setAddrFunds] = useState("");
+  const [addrFunds, setAddrFunds] = useState(
+    "Submit an address to show balance in"
+  );
   const [lotteryProfits, setLotteryProfits] = useState("");
   const [isLotteryRunning, setIsLotteryRunning] = useState("Yes");
 

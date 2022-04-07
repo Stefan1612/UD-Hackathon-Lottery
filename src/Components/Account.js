@@ -24,7 +24,7 @@ const Account = (props) => {
 
               <Typography>You are currently connected to the </Typography>
 
-              <Typography paddingBottom={"calc(2.4vh + 2.4vw)"}>
+              <Typography paddingBottom={"calc(3.27vh + 3.27vw)"}>
                 {props.networkchainId}, {props.networkname} network
               </Typography>
             </Box>
@@ -53,7 +53,7 @@ const Account = (props) => {
                   }}
                   onClick={props.getPersonalWinnings}
                 >
-                  Check Winnings related to addresse {props.addrFunds}
+                  Check Winnings related to address
                 </Button>
                 <Box textAlign={"center"}>
                   <TextField
@@ -61,6 +61,7 @@ const Account = (props) => {
                     placeholder="Check winnings of..."
                   ></TextField>
                 </Box>
+                <Typography>{props.addrFunds} ether</Typography>
               </Box>
             </Box>
           </Paper>
@@ -87,7 +88,7 @@ const Account = (props) => {
                   Submit withdraw address
                 </Button>
               </Box>
-              <Box textAlign={"center"} marginTop={"calc(1.3vh + 1.3vw)"}>
+              <Box textAlign={"center"} marginTop={"calc(2.15vh + 2.15vw)"}>
                 <TextField
                   onChange={(e) => props.handleChangeWithdraw(e.target.value)}
                   placeholder="Receiver of Funds..."

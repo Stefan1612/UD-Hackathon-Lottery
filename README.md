@@ -2,7 +2,11 @@
 
 ## Status
 
-- Work in progress
+The Lottery is currently running and fully functional on Kovan at:
+
+0x64283E7e871735853712a29310E6b00aa3160731
+
+The Website is online and running at [Wesbite](https://frosty-noyce-15524f.netlify.app/)
 
 ## Demo Video
 

@@ -12,7 +12,6 @@ The Website is online and running at [Wesbite](https://frosty-noyce-15524f.netli
 
 ### To-do's
 
-- Rewrite the frontend to utilize events
 - Governments protocol
 
 ## Approach

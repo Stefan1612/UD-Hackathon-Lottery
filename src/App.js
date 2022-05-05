@@ -14,6 +14,9 @@ import { Container, Box, ThemeProvider } from "@mui/material";
 import BackgroundImage from "./Components/BackgroundImage";
 import Header from "./Components/Header";
 import theme from "./Components/theme/theme";
+
+/* require("dotenv").config(); */
+
 const { utils } = require("ethers");
 
 function App() {
@@ -34,12 +37,23 @@ function App() {
   const [lotteryProfits, setLotteryProfits] = useState("");
   const [isLotteryRunning, setIsLotteryRunning] = useState("Yes");
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  /*  const provider = new ethers.providers.Web3Provider(window.ethereum); */
+
+  let provider;
+
+  if (window.ethereum) {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+  }
+
+  const infuraProvider = new ethers.providers.InfuraProvider("kovan", {
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    projectSecret: process.env.REACT_APP_PROJECT_SECRET,
+  });
 
   const eventContract = new ethers.Contract(
     lotteryAddress[42].Lottery,
     lotteryABI.abi,
-    provider
+    infuraProvider
   );
 
   useEffect(() => {
@@ -83,7 +97,7 @@ function App() {
 
     //removing all old event Listeners
     return () => {
-      eventContract.on("newLotteryStarted", (Unixtime) => {
+      eventContract.removeListener("newLotteryStarted", (Unixtime) => {
         console.log("newLotteryStarted at " + Unixtime);
         setLotteryBool(true);
         /* startLotteryCountdown(time); */
@@ -121,7 +135,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.endTime();
 
@@ -131,7 +145,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.startTime();
     data = data.toNumber();
@@ -149,7 +163,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let array = await contract.getArrayLength();
     array = array.toNumber();
@@ -181,15 +195,16 @@ function App() {
   }
 
   useEffect(() => {
-    getAccount();
-    getContractParticipantsArray();
-    getCurrentPool();
-    getTime();
-    getOwner();
-    getPrice();
-    getWinnerAddress();
-    setEventTime();
-    setStartTimeEvent();
+    getAccount(); // user provider
+
+    getContractParticipantsArray(); // infuraProvider
+    getCurrentPool(); // infuraProvider
+    getTime(); // infuraProvider
+    getOwner(); // infuraProvider
+    getPrice(); // infuraProvider
+    getWinnerAddress(); // infuraProvider
+    setEventTime(); // infuraProvider
+    setStartTimeEvent(); // infuraProvider
     getCurrentUnixTime(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -201,15 +216,19 @@ function App() {
       setAccount(accounts[0]);
     } else {
       // eslint-disable-next-line
-      window.alert("Install Metamask!");
+      window.alert(
+        "Please Install Metamask to fully utilize this website: https://metamask.io/"
+      );
     }
   }
 
   useEffect(() => {
-    window.ethereum.on("chainChanged", handleChainChanged);
-    return () => {
-      window.ethereum.removeListener("chainChanged", handleChainChanged);
-    };
+    if (typeof window.ethereum !== "undefined") {
+      window.ethereum.on("chainChanged", handleChainChanged);
+      return () => {
+        window.ethereum.removeListener("chainChanged", handleChainChanged);
+      };
+    }
   }, []);
 
   function handleChainChanged(_chainId) {
@@ -218,10 +237,15 @@ function App() {
   }
 
   useEffect(() => {
-    window.ethereum.on("accountsChanged", handleAccountsChanged);
-    return () => {
-      window.ethereum.removeListener("accountsChanged", handleAccountsChanged);
-    }; // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (typeof window.ethereum !== "undefined") {
+      window.ethereum.on("accountsChanged", handleAccountsChanged);
+      return () => {
+        window.ethereum.removeListener(
+          "accountsChanged",
+          handleAccountsChanged
+        );
+      };
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // For now, 'eth_accounts' will continue to always return an array
@@ -257,7 +281,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.totalCurrentPool();
     setCurrentPool(bigNumIntoEther4Decimals(data));
@@ -267,7 +291,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.time();
     data = data.toNumber();
@@ -296,7 +320,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.owner();
     setOwner(data);
@@ -307,7 +331,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.price();
     setPrice(bigNumIntoEther4Decimals(data));
@@ -343,7 +367,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.winner();
     setWinner(data);
@@ -414,7 +438,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.getBalance();
     setBalance(bigNumIntoEther4Decimals(data));
@@ -424,7 +448,7 @@ function App() {
     const contract = new ethers.Contract(
       lotteryAddress[42].Lottery,
       lotteryABI.abi,
-      provider
+      infuraProvider
     );
     let data = await contract.lotteryProfits();
     setLotteryProfits(bigNumIntoEther4Decimals(data));

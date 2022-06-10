@@ -14,15 +14,122 @@ import { Container, Box, ThemeProvider } from "@mui/material";
 import BackgroundImage from "./Components/BackgroundImage";
 import Header from "./Components/Header";
 import theme from "./Components/theme/theme";
-
+import NavbarTwo from "./Components/NavbarTwo";
 /* require("dotenv").config(); */
+// Unstoppable Domains
+import UAuth from "@uauth/js";
 
+// import button images
+import defaultButton from "./default-button.png";
+import pressedButton from "./hover-button.png";
+import hoverButton from "./pressed-button.png";
 const { utils } = require("ethers");
 
 function App() {
   //running on kovan
 
   const [account, setAccount] = useState("");
+
+  const [imageSrc, setImageSrc] = useState(defaultButton);
+  function handleMouseEnter() {
+    setImageSrc(hoverButton);
+  }
+
+  function handleMouseLeave() {
+    setImageSrc(defaultButton);
+  }
+
+  const uauth = new UAuth({
+    clientID: process.env.REACT_APP_CLIENT_ID_UD,
+
+    // These are the scopes your app is requesting from the ud server.
+    scope: "openid wallet",
+
+    // This is the url that the auth server will redirect back to after every authorization attempt.
+    redirectUri: "https://quiet-dragon-f4e178.netlify.app/",
+  });
+
+  // eslint-disable-next-line
+  const [errorMessage, setErrorMessage] = useState("This is the error message");
+
+  const handleLoginButtonClick = (e) => {
+    setErrorMessage(null);
+    uauth.login().catch((error) => {
+      console.error("login error:", error);
+      setErrorMessage("User failed to login.");
+    });
+
+    setImageSrc(pressedButton);
+  };
+  // eslint-disable-next-line
+  const [redirectTo, setRedirectTo] = useState();
+  // eslint-disable-next-line
+  const [user, setUser] = useState();
+  // eslint-disable-next-line
+  const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line
+  const [redirectToLogOut, setRedirectToLogOut] = useState();
+  // eslint-disable-next-line
+  const [udLoginAddress, setUdLoginAddress] = useState("");
+  const [udLoginDomain, setUdLoginDomain] = useState("");
+
+  useEffect(() => {
+    // Try to exchange authorization code for access and id tokens.
+    uauth
+      .loginCallback()
+      // Successfully logged and cached user in `window.localStorage`
+      .then((response) => {
+        console.log("loginCallback ->", response);
+        setRedirectTo("/profile");
+        setUdLoginAddress(response.authorization.idToken.wallet_address);
+        // console.log(udLoginAddress);
+
+        setAccount(response.authorization.idToken.wallet_address);
+        setUdLoginDomain(response.authorization.idToken.sub);
+        localStorage.setItem(
+          "account",
+          JSON.stringify(response.authorization.idToken.wallet_address)
+        );
+        localStorage.setItem(
+          "udLoginAddress",
+          JSON.stringify(response.authorization.idToken.wallet_address)
+        );
+        localStorage.setItem(
+          "UdLoginDomain",
+          JSON.stringify(response.authorization.idToken.sub)
+        );
+      })
+
+      // Failed to exchange authorization code for token.
+      .catch((error) => {
+        console.error("callback error:", error);
+        setRedirectTo("/login?error=" + error.message);
+      }); // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    uauth
+      .user()
+      .then(setUser)
+      .catch((error) => {
+        console.error("profile error:", error);
+        setRedirectToLogOut("/login?error=" + error.message);
+      }); // eslint-disable-next-line
+  }, []);
+  // eslint-disable-next-line
+  const handleLogoutButtonClick = (e) => {
+    console.log("logging out!");
+    setLoading(true);
+    uauth.logout().catch((error) => {
+      console.error("profile error:", error);
+      setLoading(false);
+    });
+
+    setUdLoginAddress(undefined);
+    /* setAreTokensFetched(false)
+    setAreTokensGeckoInitialized(false) */
+    window.location.reload();
+  };
 
   const [currentPool, setCurrentPool] = useState("");
 
@@ -515,10 +622,54 @@ function App() {
       clearInterval(myInterval);
     };
   });
+  // eslint-disable-next-line
+  if (udLoginAddress === "" && localStorage.getItem("UdLoginDomain") === null) {
+    return (
+      <div
+        className="pages"
+        style={{ height: "100vh", backgroundColor: "black" }}
+      >
+        <div
+          className="text-center"
+          style={{ paddingTop: "28vh", marginRight: "5vw" }}
+        >
+          {
+            // eslint-disable-next-line
+          }
+          {/* <img src={logo}></img> */}
+        </div>
+
+        <div
+          style={{
+            paddingTop: "2vh",
+            margin: "auto",
+            textAlign: "center",
+            marginTop: "10vh",
+          }}
+        >
+          <img
+            alt="UnstoppableLoginButton"
+            onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => handleMouseLeave()}
+            src={imageSrc}
+            className="pointer"
+            onClick={() => handleLoginButtonClick()}
+          ></img>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
-      <Header FirstLoad={getAccount} />
+      <Header
+        FirstLoad={getAccount}
+        account={account}
+        handleLogoutButtonClick={handleLogoutButtonClick}
+        udLoginDomain={udLoginDomain}
+        udLoginAddress={udLoginAddress}
+      />
+      {/* <NavbarTwo /> */}
       <BackgroundImage />
       <Box
         id="background"

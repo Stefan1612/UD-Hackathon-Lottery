@@ -35,7 +35,8 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
     uint256 public time = 10 seconds;
 
     //external
-    function settingTimeInSeconds(uint256 newTime) external onlyOwner {
+    /* onlyOwner */ 
+    function settingTimeInSeconds(uint256 newTime) external  {
         require(
             winnerChosen == true,
             "You can only change the time after the winner has been chosen!"
@@ -60,7 +61,8 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
 
     //external
     //changing entry price
-    function entryPriceInWei(uint256 newPrice) external onlyOwner {
+    /* onlyOwner */ 
+    function entryPriceInWei(uint256 newPrice) external {
         require(
             winnerChosen == true,
             "You can only change the entry price after the winner has been chosen!"
@@ -176,7 +178,8 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
 
     //external
     // @dev choosing the winner of the current lottery
-    function chooseWinner() external onlyOwner onlyAfter(startTime + time) {
+    /* onlyOwner */ 
+    function chooseWinner() external onlyAfter(startTime + time) {
         require(
             participants.length >= 2,
             "There are not enough participants yet"
@@ -239,7 +242,8 @@ contract Lottery is Ownable, ReentrancyGuard, VRFConsumerBase {
 
     //external
     //@Dev Starting a new Lottery
-    function startNewLottery() external onlyOwner {
+    /* onlyOwner */ 
+    function startNewLottery() external {
         require(
             winnerChosen == true,
             "You need to choose the winner for the current Lottery, before you can start a new one"

@@ -14,7 +14,7 @@ import { Container, Box, ThemeProvider } from "@mui/material";
 import BackgroundImage from "./Components/BackgroundImage";
 import Header from "./Components/Header";
 import theme from "./Components/theme/theme";
-import NavbarTwo from "./Components/NavbarTwo";
+
 /* require("dotenv").config(); */
 // Unstoppable Domains
 import UAuth from "@uauth/js";

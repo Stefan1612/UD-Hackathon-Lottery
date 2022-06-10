@@ -13,9 +13,39 @@ import { HashLink } from "react-router-hash-link";
 
 import { ReactComponent as MenuIcon } from "./assets/menu.svg";
 import LogoSimpleBlock from "./assets/LogoMakr-9qZ27k.png";
-const pages = ["Management", "personal account", "faq"];
 
-function Header({ FirstLoad }) {
+function Header({
+  FirstLoad,
+  account,
+  handleLogoutButtonClick,
+  udLoginAddress,
+  udLoginDomain,
+}) {
+  const pages = [
+    /* "Management", "personal account", "faq" */
+  ];
+
+  function handleCloseAndLogout() {
+    // handleClose();
+    handleLogoutButtonClick();
+    localStorage.clear();
+  }
+  function handleStorageUdLoginDomain() {
+    console.log("handleSotrageUdLoginDomain got triggered");
+    if (localStorage.getItem("UdLoginDomain") !== null) {
+      return localStorage
+        .getItem("UdLoginDomain")
+        .slice(1, localStorage.getItem("UdLoginDomain").length - 1);
+    }
+  }
+  function handleStorageUdLoginAddress() {
+    console.log("handleSotrageUdLoginDomain got triggered");
+    if (localStorage.getItem("udLoginAddress") !== null) {
+      return localStorage
+        .getItem("udLoginAddress")
+        .slice(1, localStorage.getItem("udLoginAddress").length - 1);
+    }
+  }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -130,6 +160,22 @@ function Header({ FirstLoad }) {
               </Typography>
             </Button>
           ))}
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Box>
+              Associated Address:{" "}
+              {udLoginAddress !== ""
+                ? udLoginAddress
+                : handleStorageUdLoginAddress()}
+              &nbsp;
+            </Box>
+          </Box>
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Box className="UDLogOut">
+              {udLoginDomain !== ""
+                ? udLoginDomain
+                : handleStorageUdLoginDomain()}
+            </Box>
+          </Box>
           <Button
             to="#entry"
             size="medium"
@@ -140,6 +186,20 @@ function Header({ FirstLoad }) {
           >
             Lottery
           </Button>
+          {/*--------------------------------------------------------------------------*/}
+          <Button
+            onClick={(e) => handleCloseAndLogout()}
+            size="medium"
+            to="/"
+            component={HashLink}
+            smooth
+            variant="contained"
+            sx={{ fontWeight: 700, backgroundColor: "#00e676" }}
+          >
+            Logout
+          </Button>
+
+          {/*--------------------------------------------------------------------------*/}
         </Box>
       </Toolbar>
       <Box sx={{ marginLeft: "25vw" }} marginTop={34}>

@@ -13,9 +13,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-/* import Button from "@mui/material/Button"; */
-import LogoSimpleBlock from "./assets/LogoMakr-9qZ27k.png";
-
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -37,7 +34,7 @@ const ResponsiveAppBar = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  function handleCloseAndLogout() {
+  /* function handleCloseAndLogout() {
     // handleClose();
     props.handleLogoutButtonClick();
     localStorage.clear();
@@ -57,7 +54,7 @@ const ResponsiveAppBar = (props) => {
         .getItem("udLoginAddress")
         .slice(1, localStorage.getItem("udLoginAddress").length - 1);
     }
-  }
+  } */
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

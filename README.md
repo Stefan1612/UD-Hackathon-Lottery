@@ -2,7 +2,7 @@
 
 ## Status
 
-- Project Name: NFT Marketplace
+- Project Name: Lottery
 - Unstoppable Code: [Link](https://github.com/Stefan1612/UD-Hackathon-Lottery/blob/master/src/App.js)
 - Working Website: [Link](https://quiet-dragon-f4e178.netlify.app/)
 - Demo video: [Link](https://www.youtube.com/watch?v=Ibocwi2B-A4)
